@@ -4,31 +4,31 @@
 void scan_and_execute_command(int command_number) {
     switch(command_number) {
         case 1:
-            print("Execute touch!");
+            printf("Execute touch!");
             break;
         case 2:
-            print("Execute mkdir!");
+            printf("Execute mkdir!");
             break;
         case 3:
-            print("Execute ls!");
+            printf("Execute ls!");
             break;
         case 4:
-            print("Execute rm!");
+            printf("Execute rm!");
             break;
         case 5:
-            print("Execute rmdir!");
+            printf("Execute rmdir!");
             break;
         case 6:
-            print("Execute cd!");
+            printf("Execute cd!");
             break;
         case 7:
-            print("Execute tree!");
+            printf("Execute tree!");
             break;
         case 8:
-            print("Execute pwd!");
+            printf("Execute pwd!");
             break;
         case 9:
-            print("Execute stop!");
+            printf("Execute stop!");
             break;
         case -1:
             printf("Command not recognized!\n");
@@ -57,11 +57,10 @@ int recognize_command(char* command) {
         return 7;
     else if(strcmp(command, "pwd") ==0)
         return 8;
-    else if(strcmp(command, "stop" == 0))
+    else if(strcmp(command, "stop") == 0)
         return 9;
     else
         return -1;
-
 }
 
 // Release the memory
