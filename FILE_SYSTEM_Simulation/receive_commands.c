@@ -1,42 +1,97 @@
 #include "receive_commands.h"
+#define LEVEL 1
 
 // Scan inputs based on the command and execute it
-void scan_and_execute_command(int command_number) {
+bool scan_and_execute_command(int command_number, Dir** current_directory) {
+
+    // Varibles
+    char* file_name = NULL;
+    char* dir_name = NULL;
+    char* output = NULL;
+
     switch(command_number) {
         case 1:
-            printf("Execute touch!");
+            // Get file name
+            file_name = calloc(MAX_INPUT_LINE_SIZE, sizeof(char));
+            DIE(!file_name, "Couldn't read file name in the touch function!");
+            scanf("%s", file_name);
+
+            touch(*current_directory, file_name);
+            
             break;
         case 2:
-            printf("Execute mkdir!");
+            // Get directory name
+            dir_name = calloc(MAX_INPUT_LINE_SIZE, sizeof(char));
+            DIE(!dir_name, "Couldn't read directory name in the mkdir function!");
+            scanf("%s", dir_name);
+
+            mkdir(*current_directory, dir_name);
+            
             break;
         case 3:
-            printf("Execute ls!");
+            ls(*current_directory);
             break;
         case 4:
-            printf("Execute rm!");
+            // Get file name
+            file_name = calloc(MAX_INPUT_LINE_SIZE, sizeof(char));
+            DIE(!file_name, "Couldn't read file name in the touch function!");
+            scanf("%s", file_name);
+
+            rm(*current_directory, file_name);
+
             break;
         case 5:
-            printf("Execute rmdir!");
+            // Get directory name
+            dir_name = calloc(MAX_INPUT_LINE_SIZE, sizeof(char));
+            DIE(!dir_name, "Couldn't read directory name in the mkdir function!");
+            scanf("%s", dir_name);
+
+            rmdir(*current_directory, dir_name);
             break;
         case 6:
-            printf("Execute cd!");
+            // Get directory name
+            dir_name = calloc(MAX_INPUT_LINE_SIZE, sizeof(char));
+            DIE(!dir_name, "Couldn't read directory name in the mkdir function!");
+            scanf("%s", dir_name);
+
+            cd(current_directory, dir_name);
             break;
         case 7:
-            printf("Execute tree!");
+            // GEt level
+            if(!(*current_directory)->head_children_dirs)
+                break;
+            cd(current_directory, (*current_directory)->head_children_dirs->name);
+            tree(*current_directory, LEVEL);
+            cd(current_directory, "..");
             break;
         case 8:
-            printf("Execute pwd!");
+            output = pwd(*current_directory);
+            printf("%s\n", output);
+            free(output);
+            output = NULL;
             break;
         case 9:
-            printf("Execute stop!");
-            break;
+            while((*current_directory)->parent)
+                (*current_directory) = (*current_directory)->parent;
+            stop(*current_directory);
+            return false;
         case -1:
-            printf("Command not recognized!\n");
-            break;
+            return true;
         default:
-            printf("Other output than expected!");
-            return;
+            return true;
     }
+
+    if(file_name) {
+        free(file_name);
+    }
+    if(dir_name) {
+        free(dir_name);
+    }
+    if(output) {
+        free(output);
+    }
+
+    return true;
 }
 
 // Recognize the command and return an id for it
@@ -63,7 +118,3 @@ int recognize_command(char* command) {
         return -1;
 }
 
-// Release the memory
-void release_memory(char* command) {
-    free(command);
-}
