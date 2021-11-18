@@ -4,8 +4,7 @@
 
 # Variables
 NAME=tema
-CFLAGS=-g
-#CFLAGS=-Wall -Wextra -g
+CFLAGS=-Wall -Wextra -g
 CC=gcc
 FILES_C=main.c receive_commands.c execute_commands.c support.c
 FILES_O=main.o receive_commands.o execute_commands.o support.o
