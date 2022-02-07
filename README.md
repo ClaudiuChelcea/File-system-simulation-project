@@ -1,4 +1,3 @@
-322CA Chelcea Claudiu
 The main file is "tema1.c", a simple loop which receives the commands. For each command, it returns a number from 1 - 10 for a valid command or -1 for an invalid command, number that is given to the scan_and_execute_command function, a function represented by a switch block which calls the specific function for the received number.
 
 1
