@@ -9,7 +9,7 @@ It first compares the received name with the parent directory, then checks if th
 For number 2, it created a directory with the exact steps as the touch fct described above.
 
 3
-FOr number 3, the switch block loops first through all the subdirectories in the current directory and prints their name, after which it will do the same with the files.
+For number 3, the switch block loops first through all the subdirectories in the current directory and prints their name, after which it will do the same with the files.
 
 4
 The rm function will firstly check if we have any files, and, if we do, it will search for it. If the first file needs to be removed, we move the head_children_files to the next file and then remove it, or, if it isn't the first file, it's just a linked list item removal: find the element behind it and then: element->next = element->next->next, thus skipping it, while keeping the element->next in a separate pointer to be able to release the memory.
